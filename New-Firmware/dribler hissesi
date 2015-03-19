@@ -1,0 +1,34 @@
+#include <Servo.h>
+
+Servo spinnerMotor;
+int spinnerPin = 13;
+
+void setup()
+{
+  pinMode(spinnerPin,OUTPUT);
+  spinnerMotor.attach(9);
+  Serial.begin(9600);
+  escArm();
+}
+
+
+void loop()
+{
+  digitalWrite(spinnerPin,LOW);
+  spinnerMotor.write(250);
+    
+}
+
+void escArm(){
+  delay(2000);
+  spinnerMotor.write(0);
+  digitalWrite(spinnerPin,HIGH);
+  delay(100);
+  digitalWrite(spinnerPin,LOW);
+  delay(2000);
+  spinnerMotor.write(60);
+  digitalWrite(spinnerPin,HIGH);
+  delay(100);
+  digitalWrite(spinnerPin,LOW);
+  delay(2000);
+}

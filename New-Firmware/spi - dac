@@ -1,0 +1,28 @@
+#include <SPI.h> 
+
+const int slave = 10;
+int  value = 0;
+
+void setup() {
+  SPI.setBitOrder(MSBFIRST); //most sign. bit
+  SPI.setDataMode(SPI_MODE1);
+  SPI.begin();
+  pinMode(slave,OUTPUT);
+  digitalWrite(slave, HIGH);
+}
+
+
+void loop() {
+  digitalWrite(slave, LOW); //select slave
+  byte byte0 = 00000000;
+  byte byte1 = byte(value >> 8);
+  byte byte2 = byte(value & 0xFF);
+  delayMicroseconds(1);
+  SPI.transfer(byte0);
+  SPI.transfer(byte1);
+  SPI.transfer(byte2);
+  delayMicroseconds(1);
+  digitalWrite(slave, HIGH); //deselect slave
+  delay(1);
+  value+=1;
+}

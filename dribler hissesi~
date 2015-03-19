@@ -1,0 +1,33 @@
+#include <Servo.h>
+
+Servo myMotor;
+
+void setup()
+{
+  pinMode(13,OUTPUT);
+  myMotor.attach(9);
+  Serial.begin(9600);
+  tune();
+}
+
+
+void loop()
+{
+  digitalWrite(13,LOW);
+  myMotor.write(250);
+    
+}
+
+void tune(){
+  delay(2000);
+  myMotor.write(0);
+  digitalWrite(13,HIGH);
+  delay(100);
+  digitalWrite(13,LOW);
+  delay(2000);
+  myMotor.write(60);
+  digitalWrite(13,HIGH);
+  delay(100);
+  digitalWrite(13,LOW);
+  delay(2000);
+}

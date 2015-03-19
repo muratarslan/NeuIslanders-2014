@@ -1,0 +1,39 @@
+void setup()
+{
+  pinMode(9, OUTPUT);
+  Serial.begin(9600);
+  Serial.println("initializing");
+}
+
+
+void loop()
+{
+ 
+  int volt = analogRead(A0);
+  Serial.println(volt);
+  
+  if(volt > 340)
+    noTone(9);
+  if(volt < 335)
+    tone(9, 20000);
+    
+    
+    
+  
+     
+  if(Serial.available() > 0)
+  {
+      int dly = Serial.read();
+      int val = dly;
+      Serial.println(val);
+      del(val);
+    }
+  }
+
+
+void del(int dly){
+  analogWrite(5, 100);
+  delay(dly);
+  analogWrite(5, LOW);
+}
+  

@@ -1,0 +1,55 @@
+#include <Servo.h>
+
+Servo myservo;  // create servo object to control a servo 
+
+String readString;
+
+void setup() 
+{ 
+  myservo.attach(6);
+  Serial.begin(9600);
+} 
+
+void Arm() {
+  myservo.write(10); 
+  delay(2000);
+  Serial.println("Armed!");
+}
+
+
+void loop() 
+{ 
+  
+   while (Serial.available()) {
+    delay(10);  
+    if (Serial.available() >0) {
+      char c = Serial.read();  //gets one byte from serial buffer
+      readString += c; //makes the string readString
+    }
+  }
+  
+  if (readString.length() >0) {
+    Serial.println(readString);  //so you can see the captured string
+    if(readString=="A") {
+      Arm();
+      readString="";
+    }
+    else {
+    int n;
+    char carray[4]; //converting string to number
+    readString.toCharArray(carray, sizeof(carray));
+    n = atoi(carray);
+   
+  
+    readString="";
+    Serial.println("Number: "); 
+    Serial.println(n); 
+
+
+    myservo.write(n); 
+    }
+  }
+  
+  delay(10);
+
+} 
